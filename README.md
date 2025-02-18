@@ -1,9 +1,6 @@
 # roc-heck
 Case conversion library for Roc, based on the Rust [heck](https://crates.io/crates/heck) crate
 
-# roc-heck
-A small parser combinator library for roc.
-
 [![Roc-Lang][roc_badge]][roc_link]
 [![GitHub last commit][last_commit_badge]][last_commit_link]
 [![CI status][ci_status_badge]][ci_status_link]
