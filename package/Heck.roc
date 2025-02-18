@@ -183,8 +183,8 @@ transform = |s, with_word, boundary|
     |> Utils.split_if(|c| !is_alphanumeric(c))
     |> List.map_with_index(
         |word, j|
-            word
-            |> List.walk_with_index(
+            List.walk_with_index(
+                word,
                 { words: [], mode: Boundary, first_word: (j == 0), start: 0 },
                 |{ words, mode, first_word, start }, c, i|
                     next_i = i + 1
@@ -207,7 +207,7 @@ transform = |s, with_word, boundary|
                             else
                                 { words, mode: next_mode, first_word, start }
 
-                        Err _ ->
+                        Err(OutOfBounds) ->
                             new_words =
                                 (if !first_word then boundary(words) else words)
                                 |> with_word(List.split_at(word, start) |> .others, first_word)
@@ -215,6 +215,6 @@ transform = |s, with_word, boundary|
                             { words: new_words, mode: Boundary, first_word: Bool.false, start: next_i },
             ),
     )
-    |> List.map(|{words}| List.join(words))
+    |> List.map(|{ words }| List.join(words))
     |> List.join
     |> Str.from_utf8_lossy
