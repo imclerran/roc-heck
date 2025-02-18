@@ -215,7 +215,6 @@ transform = |s, with_word, boundary|
                             { words: new_words, mode: Boundary, first_word: Bool.false, start: next_i },
             ),
     )
-    |> List.map(.words)
-    |> List.join
+    |> List.map(|{words}| List.join(words))
     |> List.join
     |> Str.from_utf8_lossy
