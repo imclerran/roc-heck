@@ -1,18 +1,17 @@
-name: Generate docs
+name: Bundle Release
 
 on:
+  # Run when a release is published
   release:
     types:
       - published
-  workflow_dispatch:
 
 jobs:
-  generate-docs:
-    name: Generate docs
+  bundle-and-release:
+    name: Bundle and release library
     runs-on: ubuntu-latest
     permissions:
-      pages: write
-      id-token: write
+      contents: write # Used to upload the bundled library
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
@@ -20,20 +19,8 @@ jobs:
         uses: hasnep/setup-roc@v0.5.0
         with:
           roc-version: 0.0.0-alpha2-rolling
-      - name: Generate docs
-        run: roc docs package/main.roc
-      - name: List contents of generated-docs directory (before fix paths)
-        run: ls -R generated-docs
-      - name: Fix absolute paths
-        run: |
-          find generated-docs/ -type f -name '*.html' -exec sed -i "s/\(href\|src\)=\"\//\1=\"\/${{ github.event.repository.name }}\//g" {} +
-      - name: List contents of generated-docs directory (after fix paths)
-        run: ls -R generated-docs
-      - name: Upload docs artifact
-        uses: actions/upload-pages-artifact@v3.0.1
+      - name: Bundle and release the library
+        uses: hasnep/bundle-roc-library@main
         with:
-          path: generated-docs
-      - name: Deploy docs
-        uses: actions/deploy-pages@v4.0.5
-    environment:
-      name: github-pages
+          library: package/main.roc # Path to the library's entrypoint
+          token: ${{ github.token }}
