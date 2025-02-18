@@ -179,51 +179,43 @@ import Utils exposing [is_alphanumeric, is_uppercase, is_lowercase]
 
 transform : Str, WithWord, Boundary -> Str
 transform = |s, with_word, boundary|
-    some_words = s |> Str.to_utf8 |> Utils.split_if(|c| !is_alphanumeric(c))
-    some_words |> List.map_with_index(
+    Str.to_utf8(s)
+    |> Utils.split_if(|c| !is_alphanumeric(c))
+    |> List.map_with_index(
         |word, j|
-            word |> List.walk_with_index(
+            word
+            |> List.walk_with_index(
                 { words: [], mode: Boundary, first_word: (j == 0), start: 0 },
                 |{ words, mode, first_word, start }, c, i|
                     next_i = i + 1
                     when List.get(word, next_i) is
                         Ok(next) ->
-                            next_mode = 
-                                if is_lowercase(c) then
-                                    Lowercase
-                                else if Utils.is_uppercase(c) then
-                                    Uppercase
-                                else
-                                    mode
-                            
+                            next_mode = if is_lowercase(c) then Lowercase else if Utils.is_uppercase(c) then Uppercase else mode
+
                             if next_mode == Lowercase and is_uppercase(next) then
-                                words_with_boundary = if !first_word then boundary(words) else words
-
-                                new_words = 
-                                    words_with_boundary
+                                new_words =
+                                    (if !first_word then boundary(words) else words)
                                     |> with_word(List.sublist(word, { start, len: next_i - start }), first_word)
-                                
-                                { words: new_words, mode: Boundary, first_word: Bool.false, start: next_i }
-                            
-                            else if mode == Uppercase and Utils.is_uppercase(c) and Utils.is_lowercase(next) then
-                                words_with_boundary = if !first_word then boundary(words) else words
 
-                                new_words = 
-                                    words_with_boundary
+                                { words: new_words, mode: Boundary, first_word: Bool.false, start: next_i }
+                            else if mode == Uppercase and Utils.is_uppercase(c) and Utils.is_lowercase(next) then
+                                new_words =
+                                    (if !first_word then boundary(words) else words)
                                     |> with_word(List.sublist(word, { start, len: i - start }), first_word)
-                                
+
                                 { words: new_words, mode: Boundary, first_word: Bool.false, start: i }
-                            
                             else
                                 { words, mode: next_mode, first_word, start }
-                            # { words, mode, first_word, start }
-                        Err _ ->
-                            words_with_boundary = if !first_word then boundary(words) else words
 
-                            new_words = 
-                                words_with_boundary
+                        Err _ ->
+                            new_words =
+                                (if !first_word then boundary(words) else words)
                                 |> with_word(List.split_at(word, start) |> .others, first_word)
-                            
-                            { words: new_words, mode: Boundary, first_word: Bool.false, start: next_i }
-                )
-            ) |> List.map(.words) |> List.join |> List.join |> Str.from_utf8_lossy
+
+                            { words: new_words, mode: Boundary, first_word: Bool.false, start: next_i },
+            ),
+    )
+    |> List.map(.words)
+    |> List.join
+    |> List.join
+    |> Str.from_utf8_lossy
