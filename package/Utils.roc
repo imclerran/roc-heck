@@ -25,7 +25,7 @@ split_if = |list, predicate|
     |> |{ acc, current }| if !List.is_empty(current) then List.append(acc, current) else acc
 
 expect
-    chars = "abc!def(ghi]jkl-mno/pqr,stu.vwx?yz" |> Str.to_utf8
+    chars = "abc!def(ghi]jkl-mno/pqr,stu vwx?yz" |> Str.to_utf8
     res = chars |> split_if(|c| !is_alphanumeric(c)) |> List.map(Str.from_utf8_lossy)
     res == ["abc", "def", "ghi", "jkl", "mno", "pqr", "stu", "vwx", "yz"]
 
@@ -42,29 +42,32 @@ expect
 capitalize : List U8 -> List U8
 capitalize = |word|
     when word is
-        [first, .. as rest] -> 
+        [first, .. as rest] ->
             if first >= 'a' and first <= 'z' then
                 List.join([[first - 32], lowercase(rest)])
             else
                 List.join([[first], lowercase(rest)])
+
         [] -> []
 
 uppercase : List U8 -> List U8
 uppercase = |word|
     when word is
-        [first, .. as rest] -> 
+        [first, .. as rest] ->
             if first >= 'a' and first <= 'z' then
                 List.join([[first - 32], uppercase(rest)])
             else
                 List.join([[first], uppercase(rest)])
+
         [] -> []
 
 lowercase : List U8 -> List U8
 lowercase = |word|
     when word is
-        [first, .. as rest] -> 
+        [first, .. as rest] ->
             if first >= 'A' and first <= 'Z' then
                 List.join([[first + 32], lowercase(rest)])
             else
                 List.join([[first], lowercase(rest)])
+
         [] -> []

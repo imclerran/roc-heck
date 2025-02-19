@@ -36,8 +36,7 @@ expect to_kebab_case("this-contains_ ALLKinds OfWord_Boundaries") == "this-conta
 expect to_kebab_case("XMLHttpRequest") == "xml-http-request"
 
 to_lower_camel_case : Str -> Str
-to_lower_camel_case = |s|
-    transform(s, LowerCamel.with_word, LowerCamel.boundary)
+to_lower_camel_case = |s| transform(s, LowerCamel.with_word, LowerCamel.boundary)
 
 expect to_lower_camel_case("CamelCase") == "camelCase"
 expect to_lower_camel_case("This is Human case.") == "thisIsHumanCase"
@@ -63,8 +62,7 @@ expect to_pascal_case("this-contains_ ALLKinds OfWord_Boundaries") == "ThisConta
 expect to_pascal_case("XMLHttpRequest") == "XmlHttpRequest"
 
 to_shouty_kebab_case : Str -> Str
-to_shouty_kebab_case = |s|
-    transform(s, ShoutyKebab.with_word, ShoutyKebab.boundary)
+to_shouty_kebab_case = |s| transform(s, ShoutyKebab.with_word, ShoutyKebab.boundary)
 
 expect to_shouty_kebab_case("CamelCase") == "CAMEL-CASE"
 expect to_shouty_kebab_case("This is Human case.") == "THIS-IS-HUMAN-CASE"
@@ -77,8 +75,7 @@ expect to_shouty_kebab_case("this-contains_ ALLKinds OfWord_Boundaries") == "THI
 expect to_shouty_kebab_case("XMLHttpRequest") == "XML-HTTP-REQUEST"
 
 to_shouty_snake_case : Str -> Str
-to_shouty_snake_case = |s|
-    transform(s, ShoutySnake.with_word, ShoutySnake.boundary)
+to_shouty_snake_case = |s| transform(s, ShoutySnake.with_word, ShoutySnake.boundary)
 
 expect to_shouty_snake_case("CamelCase") == "CAMEL_CASE"
 expect to_shouty_snake_case("This is Human case.") == "THIS_IS_HUMAN_CASE"
@@ -104,8 +101,7 @@ expect to_shouty_snek_case("this-contains_ ALLKinds OfWord_Boundaries") == "THIS
 expect to_shouty_snek_case("XMLHttpRequest") == "XML_HTTP_REQUEST"
 
 to_snake_case : Str -> Str
-to_snake_case = |s|
-    transform(s, Snake.with_word, Snake.boundary)
+to_snake_case = |s| transform(s, Snake.with_word, Snake.boundary)
 
 expect to_snake_case("CamelCase") == "camel_case"
 expect to_snake_case("This is Human case.") == "this_is_human_case"
@@ -131,8 +127,7 @@ expect to_snek_case("this-contains_ ALLKinds OfWord_Boundaries") == "this_contai
 expect to_snek_case("XMLHttpRequest") == "xml_http_request"
 
 to_title_case : Str -> Str
-to_title_case = |s|
-    transform(s, Title.with_word, Title.boundary)
+to_title_case = |s| transform(s, Title.with_word, Title.boundary)
 
 expect to_title_case("CamelCase") == "Camel Case"
 expect to_title_case("This is Human case.") == "This Is Human Case"
@@ -145,8 +140,7 @@ expect to_title_case("this-contains_ ALLKinds OfWord_Boundaries") == "This Conta
 expect to_title_case("XMLHttpRequest") == "Xml Http Request"
 
 to_train_case : Str -> Str
-to_train_case = |s|
-    transform(s, Train.with_word, Train.boundary)
+to_train_case = |s| transform(s, Train.with_word, Train.boundary)
 
 expect to_train_case("CamelCase") == "Camel-Case"
 expect to_train_case("This is Human case.") == "This-Is-Human-Case"
@@ -159,8 +153,7 @@ expect to_train_case("this-contains_ ALLKinds OfWord_Boundaries") == "This-Conta
 expect to_train_case("XMLHttpRequest") == "Xml-Http-Request"
 
 to_upper_camel_case : Str -> Str
-to_upper_camel_case = |s|
-    transform(s, UpperCamel.with_word, UpperCamel.boundary)
+to_upper_camel_case = |s| transform(s, UpperCamel.with_word, UpperCamel.boundary)
 
 expect to_upper_camel_case("CamelCase") == "CamelCase"
 expect to_upper_camel_case("This is Human case.") == "ThisIsHumanCase"
