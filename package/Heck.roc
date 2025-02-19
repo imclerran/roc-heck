@@ -22,8 +22,7 @@ import Train
 import UpperCamel
 
 to_kebab_case : Str -> Str
-to_kebab_case = |s|
-    transform(s, Kebab.with_word, Kebab.boundary)
+to_kebab_case = |s| transform(s, Kebab.with_word, Kebab.boundary)
 
 expect to_kebab_case("CamelCase") == "camel-case"
 expect to_kebab_case("This is Human case.") == "this-is-human-case"
