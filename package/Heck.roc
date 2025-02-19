@@ -168,11 +168,12 @@ WithWord : List (List U8), List U8, Bool -> List (List U8)
 Boundary : List (List U8) -> List (List U8)
 
 import Utils exposing [is_alphanumeric, is_uppercase, is_lowercase]
+import rtils.ListUtils
 
 transform : Str, WithWord, Boundary -> Str
 transform = |s, with_word, boundary|
     Str.to_utf8(s)
-    |> Utils.split_if(|c| !is_alphanumeric(c))
+    |> ListUtils.split_if(|c| !is_alphanumeric(c))
     |> List.map_with_index(
         |word, j|
             List.walk_with_index(
