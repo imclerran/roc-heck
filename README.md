@@ -7,19 +7,32 @@ Case conversion library for Roc, based on the Rust [heck](https://crates.io/crat
 [![Latest release][version_badge]][version_link]
 
 
+## Usage
+Add roc-heck to your app's dependencies, then import `Heck`:
+```roc
+app [main!] {
+    pf: platform "...",
+    heck: "https://github.com/imclerran/roc-heck/releases/download/<version>/<hash>.tar.zst",
+}
+
+import heck.Heck
+```
+
+Requires the new (Zig) Roc compiler. Install the latest nightly with [rocup](https://github.com/imclerran/rocup) via `rocup latest`.
+
 ## Examples
 ```roc
-expect to_kebab_case("XMLHttpRequest") == "xml-http-request"
-expect to_lower_camel_case("XMLHttpRequest") == "xmlHttpRequest"
-expect to_pascal_case("XMLHttpRequest") == "XmlHttpRequest"
-expect to_shouty_kebab_case("XMLHttpRequest") == "XML-HTTP-REQUEST"
-expect to_shouty_snake_case("XMLHttpRequest") == "XML_HTTP_REQUEST"
-expect to_shouty_snek_case("XMLHttpRequest") == "XML_HTTP_REQUEST"
-expect to_snake_case("XMLHttpRequest") == "xml_http_request"
-expect to_snek_case("XMLHttpRequest") == "xml_http_request"
-expect to_title_case("XMLHttpRequest") == "Xml Http Request"
-expect to_train_case("XMLHttpRequest") == "Xml-Http-Request"
-expect to_upper_camel_case("XMLHttpRequest") == "XmlHttpRequest"
+expect Heck.to_kebab_case("XMLHttpRequest") == "xml-http-request"
+expect Heck.to_lower_camel_case("XMLHttpRequest") == "xmlHttpRequest"
+expect Heck.to_pascal_case("XMLHttpRequest") == "XmlHttpRequest"
+expect Heck.to_shouty_kebab_case("XMLHttpRequest") == "XML-HTTP-REQUEST"
+expect Heck.to_shouty_snake_case("XMLHttpRequest") == "XML_HTTP_REQUEST"
+expect Heck.to_shouty_snek_case("XMLHttpRequest") == "XML_HTTP_REQUEST"
+expect Heck.to_snake_case("XMLHttpRequest") == "xml_http_request"
+expect Heck.to_snek_case("XMLHttpRequest") == "xml_http_request"
+expect Heck.to_title_case("XMLHttpRequest") == "Xml Http Request"
+expect Heck.to_train_case("XMLHttpRequest") == "Xml-Http-Request"
+expect Heck.to_upper_camel_case("XMLHttpRequest") == "XmlHttpRequest"
 ```
 
 <!-- LINKS -->
